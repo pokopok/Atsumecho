@@ -1,6 +1,8 @@
 from django import forms
 from .models import Users
 from django.contrib.auth.password_validation import validate_password
+from django.contrib.auth.forms import AuthenticationForm
+
 
 class CreateForm(forms.ModelForm):
     username = forms.CharField(label='名前')
@@ -17,3 +19,8 @@ class CreateForm(forms.ModelForm):
         user.set_password(self.cleaned_data['password'])
         user.save()
         return user
+
+class UserLoginForm(AuthenticationForm):
+    #usernameはmodels.pyのUSERNAMEにあたるもの
+    username = forms.EmailField(label='メールアドレス')
+    password = forms.CharField(label='パスワード', widget=forms.PasswordInput())
