@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'accounts'
+    'accounts',
+    'goshuin_books',
 ]
 
 MIDDLEWARE = [
@@ -125,3 +126,6 @@ AUTH_USER_MODEL = 'accounts.Users'
 LOGIN_URL = '/accounts/user_login'
 LOGIN_REDIRECT_URL = '/accounts/home'
 LOGOUT_REDIRECT_URL = '/accounts/user_login'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = 'media/'

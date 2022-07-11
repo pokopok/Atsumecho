@@ -1,3 +1,5 @@
 from django.contrib import admin
 
-# Register your models here.
+from goshuin_books.models import GoshuinBooks, Goshuins
+
+admin.site.register([GoshuinBooks, Goshuins])
