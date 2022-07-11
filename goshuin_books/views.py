@@ -1,3 +1,20 @@
 from django.shortcuts import render
+from django.views.generic.edit import CreateView
+from django.urls import reverse_lazy
+from .models import GoshuinBooks, Goshuins
+import os
 
-# Create your views here.
+class GoshuinBookCreateView(CreateView):
+    model = GoshuinBooks
+    fields = ['name',]
+    template_name = os.path.join('goshuin_books', 'create_book.html')
+    success_url = reverse_lazy('accounts:home')
+
+    def form_valid(self, form): #フォーム送信前に実行される
+        form.instance.user = self.request.user
+        return super(GoshuinBookCreateView, self).form_valid(form)
+
+    def get_form(self):
+        form = super(GoshuinBookCreateView, self).get_form()
+        form.fields['name'].label = '御朱印帳の名前'
+        return form
