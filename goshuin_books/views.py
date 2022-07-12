@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy
 from .models import GoshuinBooks, Goshuins
 import os
@@ -28,3 +29,18 @@ class GoshuinBookListView(ListView):
         qs = super(GoshuinBookListView, self).get_queryset()
         qs = qs.filter(user=self.request.user)
         return qs
+
+class GoshuinListView(ListView):
+    model = Goshuins
+    template_name = os.path.join('goshuin_books', 'book.html')
+
+    def get_queryset(self):
+        qs = super(GoshuinListView, self).get_queryset()
+        qs = qs.filter(goshuin_book=self.kwargs['book'])
+        return qs
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        book = get_object_or_404(GoshuinBooks, id=self.kwargs['book'])
+        context['book_name'] = book.name 
+        return context
