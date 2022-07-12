@@ -43,14 +43,14 @@ class GoshuinListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         book = get_object_or_404(GoshuinBooks, id=self.kwargs['book_id'])
-        context['book_name'] = book.name 
+        context['book_name'] = book.name
+        context['book_id'] = self.kwargs['book_id']
         return context
 
 class GoshuinAddView(CreateView):
     model = Goshuins
     fields = ['name', 'date', 'picture', 'memo']
     template_name = os.path.join('goshuin_books', 'add_goshuin.html')
-    # success_url = reverse_lazy('goshuin_books:list_book')
 
     def get_success_url(self):
         return reverse('goshuin_books:book', kwargs={'book_id': self.object.goshuin_book.id})

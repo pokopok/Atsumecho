@@ -1,7 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ book_name }}</h1>
+<h1>
+    {{ book_name }}
+    <a href="{% url 'goshuin_books:add_goshuin' book_id=book_id %}" class="top-menu"><button type="button" class="btn btn-primary rounded-circle p-0" style="width:2rem;height:2rem;">＋</button></a>
+</h1>
 <div class="container">
     <div class="row g-3">
         {% for object in object_list %}
