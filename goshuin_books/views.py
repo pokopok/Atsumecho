@@ -1,8 +1,9 @@
 from django.shortcuts import get_object_or_404, render
-from django.views.generic.edit import CreateView, DeleteView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy, reverse
+from django.contrib.messages.views import SuccessMessageMixin
 from .models import GoshuinBooks, Goshuins
 import os
 from datetime import date
@@ -82,3 +83,14 @@ class GoshuinDeleteView(DeleteView):
     def get_success_url(self):
         return reverse('goshuin_books:book', kwargs={'book_id': self.object.goshuin_book.id})
 
+
+
+class GoshuinBookUpdateView(SuccessMessageMixin, UpdateView):
+    model = GoshuinBooks
+    template_name = os.path.join('goshuin_books', 'update_book.html')
+    fields = ['name',]
+    # form_class = forms.BookUpdateForm
+    success_message = '更新しました'
+
+    def get_success_url(self):
+        return reverse_lazy('goshuin_books:book', kwargs={'book_id': self.object.id})

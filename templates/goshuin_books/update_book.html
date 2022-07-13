@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>ご朱印帳編集</h1>
+{% if messages %}
+{% for message in messages %}
+    {{ message.message }}
+{% endfor %}
+{% endif %}
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="更新">
+</form>
+{% endblock %}
