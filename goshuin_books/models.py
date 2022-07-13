@@ -2,6 +2,9 @@ from datetime import date
 from django.db import models
 from accounts.models import Users
 
+from django.dispatch import receiver
+import os
+
 class GoshuinBooks(models.Model):
     name = models.CharField(max_length=30)
     user = models.ForeignKey(
@@ -28,3 +31,11 @@ class Goshuins(models.Model):
     
     def __str__(self):
         return self.name
+
+
+@receiver(models.signals.post_delete, sender=Goshuins)
+#Goshuinsが削除された場合に画像も削除
+def delete_picture(sender, instance, **kwargs):
+    if instance.picture:
+        if os.path.isfile(instance.picture.path):
+            os.remove(instance.picture.path)

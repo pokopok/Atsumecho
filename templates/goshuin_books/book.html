@@ -15,6 +15,7 @@
                     <p>{{ object.name }}</p>
                     <p>{{ object.date }}</p>
                     <p>memo:{{ object.memo }}</p>
+                    <p><a href="{% url 'goshuin_books:delete_goshuin' pk=object.id %}">削除</a></p>
                 </div>
             </div>
         </div>

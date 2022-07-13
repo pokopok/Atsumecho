@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, DeleteView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy, reverse
@@ -11,7 +11,10 @@ class GoshuinBookCreateView(CreateView):
     model = GoshuinBooks
     fields = ['name',]
     template_name = os.path.join('goshuin_books', 'create_book.html')
-    success_url = reverse_lazy('accounts:home')
+
+    def get_success_url(self):
+        form = super(GoshuinBookCreateView, self).get_form()
+        return reverse('goshuin_books:book', kwargs={'book_id': form.instance.id})
 
     def form_valid(self, form): #フォーム送信前に実行される
         form.instance.user = self.request.user
@@ -66,3 +69,16 @@ class GoshuinAddView(CreateView):
         form.fields['picture'].label = '写真'
         form.fields['date'].initial = date.today()
         return form
+
+class GoshuinBookDeleteView(DeleteView):
+    model = GoshuinBooks
+    template_name = os.path.join('goshuin_books', 'delete_book.html')
+    success_url = reverse_lazy('goshuin_books:list_book')
+
+class GoshuinDeleteView(DeleteView):
+    model = Goshuins
+    template_name = os.path.join('goshuin_books', 'delete_goshuin.html')
+
+    def get_success_url(self):
+        return reverse('goshuin_books:book', kwargs={'book_id': self.object.goshuin_book.id})
+

@@ -8,4 +8,6 @@ urlpatterns = [
     path('list_book', views.GoshuinBookListView.as_view(), name='list_book'),
     path('book/<int:book_id>', views.GoshuinListView.as_view(), name='book'),
     path('add_goshuin/<int:book_id>', views.GoshuinAddView.as_view(), name='add_goshuin'),
+    path('delete_book/<int:pk>', views.GoshuinBookDeleteView.as_view(), name='delete_book'),
+    path('delete_goshuin/<int:pk>', views.GoshuinDeleteView.as_view(), name='delete_goshuin'),
 ]
