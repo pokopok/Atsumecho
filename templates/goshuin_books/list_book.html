@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>ご朱印帳</h1>
+<table>
+<tbody>
+{% for object in object_list %}
+<tr>
+<td><a href="{% url 'goshuin_books:book' book_id=object.id %}">{{ object.name }}</a></td>
+<td><a href="{% url 'goshuin_books:delete_book' pk=object.id %}">削除</a></td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+<a href="{% url 'goshuin_books:create_book' %}" class="btn btn-primary">新しいご朱印帳を作る</a>
+{% endblock %}
