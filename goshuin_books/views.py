@@ -23,7 +23,7 @@ class GoshuinBookCreateView(CreateView):
 
     def get_form(self):
         form = super(GoshuinBookCreateView, self).get_form()
-        form.fields['name'].label = 'ご朱印帳の名前'
+        form.fields['name'].label = 'ご朱印帳名'
         return form
 
 class GoshuinBookListView(ListView):
@@ -65,7 +65,7 @@ class GoshuinAddView(CreateView):
 
     def get_form(self):
         form = super(GoshuinAddView, self).get_form()
-        form.fields['name'].label = 'ご朱印の名前'
+        form.fields['name'].label = 'ご朱印名'
         form.fields['date'].label = '日付'
         form.fields['picture'].label = '写真'
         form.fields['date'].initial = date.today()
@@ -84,13 +84,32 @@ class GoshuinDeleteView(DeleteView):
         return reverse('goshuin_books:book', kwargs={'book_id': self.object.goshuin_book.id})
 
 
-
 class GoshuinBookUpdateView(SuccessMessageMixin, UpdateView):
     model = GoshuinBooks
     template_name = os.path.join('goshuin_books', 'update_book.html')
     fields = ['name',]
-    # form_class = forms.BookUpdateForm
     success_message = '更新しました'
+
+    def get_form(self):
+        form = super(GoshuinBookUpdateView, self).get_form()
+        form.fields['name'].label = 'ご朱印帳名'
+        return form
 
     def get_success_url(self):
         return reverse_lazy('goshuin_books:book', kwargs={'book_id': self.object.id})
+
+class GoshuinUpdateView(SuccessMessageMixin, UpdateView):
+    model = Goshuins
+    template_name = os.path.join('goshuin_books', 'update_goshuin.html')
+    fields = ['name', 'date', 'picture', 'memo']
+    success_message = '更新しました'
+
+    def get_success_url(self):
+        return reverse_lazy('goshuin_books:book', kwargs={'book_id': self.object.goshuin_book.id})
+
+    def get_form(self):
+        form = super(GoshuinUpdateView, self).get_form()
+        form.fields['name'].label = 'ご朱印名'
+        form.fields['date'].label = '日付'
+        form.fields['picture'].label = '写真'
+        return form

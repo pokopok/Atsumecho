@@ -11,4 +11,5 @@ urlpatterns = [
     path('delete_book/<int:pk>', views.GoshuinBookDeleteView.as_view(), name='delete_book'),
     path('delete_goshuin/<int:pk>', views.GoshuinDeleteView.as_view(), name='delete_goshuin'),
     path('update_book/<int:pk>', views.GoshuinBookUpdateView.as_view(), name='update_book'),
+    path('update_goshuin/<int:pk>', views.GoshuinUpdateView.as_view(), name='update_goshuin'),
 ]
