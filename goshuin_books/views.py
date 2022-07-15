@@ -29,7 +29,7 @@ class GoshuinBookCreateView(LoginRequiredMixin, CreateView):
         return form
 
 
-class GoshuinBookListView(ListView):
+class GoshuinBookListView(LoginRequiredMixin, ListView):
     model = GoshuinBooks
     template_name = os.path.join('goshuin_books', 'list_book.html')
 
@@ -39,7 +39,7 @@ class GoshuinBookListView(ListView):
         return qs
 
 
-class GoshuinListView(ListView):
+class GoshuinListView(LoginRequiredMixin, ListView):
     model = Goshuins
     template_name = os.path.join('goshuin_books', 'book.html')
 
@@ -64,7 +64,7 @@ class GoshuinListView(ListView):
         return context
 
 
-class GoshuinAddView(CreateView):
+class GoshuinAddView(LoginRequiredMixin, CreateView):
     model = Goshuins
     fields = ['name', 'date', 'picture', 'memo']
     template_name = os.path.join('goshuin_books', 'add_goshuin.html')
@@ -92,7 +92,7 @@ class GoshuinAddView(CreateView):
         return form
 
 
-class GoshuinBookDeleteView(DeleteView):
+class GoshuinBookDeleteView(LoginRequiredMixin, DeleteView):
     model = GoshuinBooks
     template_name = os.path.join('goshuin_books', 'delete_book.html')
     success_url = reverse_lazy('goshuin_books:list_book')
@@ -105,7 +105,7 @@ class GoshuinBookDeleteView(DeleteView):
         return super().get(request, *args, **kwargs)
 
 
-class GoshuinDeleteView(DeleteView):
+class GoshuinDeleteView(LoginRequiredMixin, DeleteView):
     model = Goshuins
     template_name = os.path.join('goshuin_books', 'delete_goshuin.html')
 
@@ -120,7 +120,7 @@ class GoshuinDeleteView(DeleteView):
         return reverse('goshuin_books:book', kwargs={'book_id': self.object.goshuin_book.id})
 
 
-class GoshuinBookUpdateView(SuccessMessageMixin, UpdateView):
+class GoshuinBookUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = GoshuinBooks
     template_name = os.path.join('goshuin_books', 'update_book.html')
     fields = ['name',]
@@ -142,7 +142,7 @@ class GoshuinBookUpdateView(SuccessMessageMixin, UpdateView):
         return reverse_lazy('goshuin_books:book', kwargs={'book_id': self.object.id})
 
 
-class GoshuinUpdateView(SuccessMessageMixin, UpdateView):
+class GoshuinUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
     model = Goshuins
     template_name = os.path.join('goshuin_books', 'update_goshuin.html')
     fields = ['name', 'date', 'picture', 'memo']
