@@ -7,8 +7,10 @@ from django.contrib.messages.views import SuccessMessageMixin
 from .models import GoshuinBooks, Goshuins
 import os
 from datetime import date
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class GoshuinBookCreateView(CreateView):
+
+class GoshuinBookCreateView(LoginRequiredMixin, CreateView):
     model = GoshuinBooks
     fields = ['name',]
     template_name = os.path.join('goshuin_books', 'create_book.html')
@@ -26,6 +28,7 @@ class GoshuinBookCreateView(CreateView):
         form.fields['name'].label = 'ご朱印帳名'
         return form
 
+
 class GoshuinBookListView(ListView):
     model = GoshuinBooks
     template_name = os.path.join('goshuin_books', 'list_book.html')
@@ -34,6 +37,7 @@ class GoshuinBookListView(ListView):
         qs = super(GoshuinBookListView, self).get_queryset()
         qs = qs.filter(user=self.request.user)
         return qs
+
 
 class GoshuinListView(ListView):
     model = Goshuins
@@ -58,7 +62,6 @@ class GoshuinListView(ListView):
         context['book_name'] = book.name
         context['book_id'] = self.kwargs['book_id']
         return context
-
 
 
 class GoshuinAddView(CreateView):
@@ -88,6 +91,7 @@ class GoshuinAddView(CreateView):
         form.fields['date'].initial = date.today()
         return form
 
+
 class GoshuinBookDeleteView(DeleteView):
     model = GoshuinBooks
     template_name = os.path.join('goshuin_books', 'delete_book.html')
@@ -99,6 +103,7 @@ class GoshuinBookDeleteView(DeleteView):
         if not request.user == book_user:
             return redirect('accounts:home')
         return super().get(request, *args, **kwargs)
+
 
 class GoshuinDeleteView(DeleteView):
     model = Goshuins
@@ -135,6 +140,7 @@ class GoshuinBookUpdateView(SuccessMessageMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('goshuin_books:book', kwargs={'book_id': self.object.id})
+
 
 class GoshuinUpdateView(SuccessMessageMixin, UpdateView):
     model = Goshuins
