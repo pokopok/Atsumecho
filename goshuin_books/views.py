@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -39,6 +39,14 @@ class GoshuinListView(ListView):
     model = Goshuins
     template_name = os.path.join('goshuin_books', 'book.html')
 
+    def get(self, request, *args, **kwargs):
+        book_user = get_object_or_404(GoshuinBooks, id=self.kwargs['book_id']).user
+        # ログインユーザー自身が作成したご朱印帳でなければホームへ
+        if not request.user == book_user:
+            return redirect('accounts:home')
+        return super().get(request,  *args, **kwargs)
+
+
     def get_queryset(self):
         qs = super(GoshuinListView, self).get_queryset()
         qs = qs.filter(goshuin_book=self.kwargs['book_id'])
@@ -51,10 +59,19 @@ class GoshuinListView(ListView):
         context['book_id'] = self.kwargs['book_id']
         return context
 
+
+
 class GoshuinAddView(CreateView):
     model = Goshuins
     fields = ['name', 'date', 'picture', 'memo']
     template_name = os.path.join('goshuin_books', 'add_goshuin.html')
+
+    def get(self, request, *args, **kwargs):
+        book_user = get_object_or_404(GoshuinBooks, id=self.kwargs['book_id']).user
+        # ログインユーザー自身が作成したご朱印帳でなければホームへ
+        if not request.user == book_user:
+            return redirect('accounts:home')
+        return super().get(request,  *args, **kwargs)
 
     def get_success_url(self):
         return reverse('goshuin_books:book', kwargs={'book_id': self.object.goshuin_book.id})
@@ -76,9 +93,23 @@ class GoshuinBookDeleteView(DeleteView):
     template_name = os.path.join('goshuin_books', 'delete_book.html')
     success_url = reverse_lazy('goshuin_books:list_book')
 
+    def get(self, request, *args, **kwargs):
+        book_user = get_object_or_404(GoshuinBooks, id=self.kwargs['pk']).user
+        # ログインユーザー自身が作成したご朱印帳でなければホームへ
+        if not request.user == book_user:
+            return redirect('accounts:home')
+        return super().get(request, *args, **kwargs)
+
 class GoshuinDeleteView(DeleteView):
     model = Goshuins
     template_name = os.path.join('goshuin_books', 'delete_goshuin.html')
+
+    def get(self, request, *args, **kwargs):
+        book_user = get_object_or_404(Goshuins, id=self.kwargs['pk']).goshuin_book.user
+        # ログインユーザー自身が作成したご朱印でなければホームへ
+        if not request.user == book_user:
+            return redirect('accounts:home')
+        return super().get(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse('goshuin_books:book', kwargs={'book_id': self.object.goshuin_book.id})
@@ -89,6 +120,13 @@ class GoshuinBookUpdateView(SuccessMessageMixin, UpdateView):
     template_name = os.path.join('goshuin_books', 'update_book.html')
     fields = ['name',]
     success_message = '更新しました'
+
+    def get(self, request, *args, **kwargs):
+        book_user = get_object_or_404(GoshuinBooks, id=self.kwargs['pk']).user
+        # ログインユーザー自身が作成したご朱印帳でなければホームへ
+        if not request.user == book_user:
+            return redirect('accounts:home')
+        return super().get(request, *args, **kwargs)
 
     def get_form(self):
         form = super(GoshuinBookUpdateView, self).get_form()
@@ -103,6 +141,13 @@ class GoshuinUpdateView(SuccessMessageMixin, UpdateView):
     template_name = os.path.join('goshuin_books', 'update_goshuin.html')
     fields = ['name', 'date', 'picture', 'memo']
     success_message = '更新しました'
+
+    def get(self, request, *args, **kwargs):
+        book_user = get_object_or_404(Goshuins, id=self.kwargs['pk']).goshuin_book.user
+        # ログインユーザー自身が作成したご朱印でなければホームへ
+        if not request.user == book_user:
+            return redirect('accounts:home')
+        return super().get(request, *args, **kwargs)
 
     def get_success_url(self):
         return reverse_lazy('goshuin_books:book', kwargs={'book_id': self.object.goshuin_book.id})
