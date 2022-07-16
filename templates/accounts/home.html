@@ -1,5 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>ホーム</h1>
+<div class="home-content wrapper">
+  <h1 class="page-title">集めるのって、楽しい。</h1>
+  <p>神社仏閣のご朱印を集めるみたいに、あなたの好きなものを集めてみませんか。</p>
+  <a href="{% url 'goshuin_books:create_book' %}"><button type="button" class="btn btn-outline-primary">ご朱印帳を作る</button></a>
+</div>
 {% endblock %}
