@@ -1,5 +1,28 @@
+@charset "UTF-8";
+
+/* 共通部分 */
+html {
+    font-size: 100%;
+}
+body{
+    line-height: 1.7;
+    color: #432;
+}
+a {
+    text-decoration: none;
+}
+img{
+    max-width: 100%;
+}
+
+
+/* header */
 nav {
     font-family: 'Shippori Mincho', serif;
+}
+
+.logo {
+    width: 210px;
 }
 
 h1 {
