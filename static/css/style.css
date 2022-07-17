@@ -25,7 +25,7 @@ img{
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
-    background-image: url("/static/image/background.jpg");
+    background-image: url("/static/image/background_normal.jpg");
     min-height: 100vh;
 }
 
