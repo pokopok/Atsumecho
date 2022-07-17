@@ -21,6 +21,14 @@ img{
     padding: 0 4%;
 }
 
+.big-bg {
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-image: url("/static/image/background.jpg");
+    min-height: 100vh;
+}
+
 /* header ---------------------------------*/
 nav {
     font-family: 'Shippori Mincho', serif;
