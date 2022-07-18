@@ -76,8 +76,8 @@ nav {
     background: rgba(253, 253, 253, 0.7);
 }
 
-.home-content h1 {
-    font-family:'Shippori Mincho', serif;
+.home-copy {
+    font-family: 'Shippori Mincho', serif;
     text-transform: uppercase;
     font-weight: normal;
     font-size: 4rem;
