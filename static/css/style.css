@@ -42,11 +42,11 @@ img{
 
 /* form */
 .form-container {
-    width: 50%;
+    width: 60%;
     height: 50%; 
     margin:0 auto;
     background-color: rgba(242, 252, 255, 0.7);
-    padding: 3rem;
+    padding: 3%;
     font-family: 'Shippori Mincho', serif;
 }
 
