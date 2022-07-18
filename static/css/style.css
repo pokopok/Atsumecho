@@ -1,0 +1,135 @@
+@charset "UTF-8";
+
+/* 共通部分 ---------------------------------*/
+html {
+    font-size: 100%;
+}
+body{
+    line-height: 1.7;
+    color: #432;
+}
+a {
+    text-decoration: none;
+}
+img{
+    max-width: 100%;
+}
+
+.wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 4%;
+}
+
+/* メッセージ　*/
+.message {
+    font-family: 'Shippori Mincho', serif;
+}
+
+/* 見出し */
+.page-title {
+    font-size: 2rem;
+    font-family: 'Yuji Boku', serif;
+}
+
+/* コンテンツのtop */
+.content-top {
+    display: flex;
+    justify-content: center;
+    text-transform: uppercase;
+    margin: 2%;
+}
+
+/* form */
+.form-container {
+    width: 60%;
+    height: 50%; 
+    margin:0 auto;
+    background-color: rgba(242, 252, 255, 0.7);
+    padding: 3%;
+    font-family: 'Shippori Mincho', serif;
+}
+
+/* header ---------------------------------*/
+nav {
+    font-family: 'Shippori Mincho', serif;
+}
+
+.nav-link {
+    color: rgb(235, 249, 255);
+}
+
+.logo {
+    width: 150px;
+}
+
+
+
+/* home ---------------------------------*/
+
+.home-content {
+    text-align: center;
+    margin-top: 10%;
+    margin-left: 3%;
+    margin-right: 3%;
+    padding-bottom: 16px;
+    background: rgba(253, 253, 253, 0.7);
+}
+
+.home-copy {
+    font-family: 'Shippori Mincho', serif;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 4rem;
+}
+
+.home-content p {
+    font-size: 1.125rem;
+    margin: 10px 0 42px;
+}
+
+.home-bg {
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-image: url("/static/image/background_normal.jpg");
+    min-height: 100vh;
+}
+
+
+/* book ---------------------------------*/
+.card-body {
+    font-family: 'Shippori Mincho', serif;
+}
+
+.edit-menus {
+    margin: 1% 2% 0 2%;
+}
+
+/* book_list ----------------------------*/
+.book-list-container{
+    width: 60%;
+    height: 50%; 
+    margin:0 auto;
+    background-color: rgba(242, 252, 255, 0.7);
+    padding: 3%;
+    font-family: 'Yuji Boku', serif;
+    font-size: 1.5rem;
+}
+
+ul {
+    list-style: none;
+}
+
+ul li::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: #177fb2;
+    display: inline-block;
+    margin: 0 12px 4px 0;
+}
+
+ul a{
+    color: #432;
+}
