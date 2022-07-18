@@ -103,5 +103,33 @@ nav {
 }
 
 .edit-menus {
-    margin: 0.5% 2% 0 2%;
+    margin: 1% 2% 0 2%;
+}
+
+/* book_list ----------------------------*/
+.book-list-container{
+    width: 60%;
+    height: 50%; 
+    margin:0 auto;
+    background-color: rgba(242, 252, 255, 0.7);
+    padding: 3%;
+    font-family: 'Yuji Boku', serif;
+    font-size: 1.5rem;
+}
+
+ul {
+    list-style: none;
+}
+
+ul li::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    background: #177fb2;
+    display: inline-block;
+    margin: 0 12px 4px 0;
+}
+
+ul a{
+    color: #432;
 }

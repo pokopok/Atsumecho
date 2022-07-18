@@ -16,7 +16,7 @@
         <nav class="navbar navbar-expand-lg">
           <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'accounts:home' %}">
-              <img class="logo" src="{% static 'image/logo.png' %}" alt="なんでもご朱印帳 ホーム">
+              <img class="logo" src="{% static 'image/logo_original.png' %}" alt="なんでもご朱印帳 ホーム">
             </a>
             {% if user.is_authenticated %}
               <div class="navbar-nav">            
@@ -37,7 +37,7 @@
         <div class="home-content wrapper">
             <h1 class="home-copy">集めるのって、楽しい。</h1>
             <p>神社仏閣のご朱印を集めるみたいに、あなたの好きなものを集めてみませんか。</p>
-            <a href="{% url 'goshuin_books:create_book' %}"><button type="button" class="btn btn-outline-primary">ご朱印帳を作る</button></a>
+            <a href="{% url 'goshuin_books:create_book' %}"><button type="button" class="btn btn-primary">ご朱印帳を作る</button></a>
         </div>
       </div>
 
