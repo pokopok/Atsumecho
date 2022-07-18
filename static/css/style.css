@@ -40,8 +40,14 @@ img{
     margin: 2%;
 }
 
-.edit-menus {
-    margin: 0.5% 2% 0 2%;
+/* form */
+.form-container {
+    width: 50%;
+    height: 50%; 
+    margin:0 auto;
+    background-color: rgba(242, 252, 255, 0.7);
+    padding: 3rem;
+    font-family: 'Shippori Mincho', serif;
 }
 
 /* header ---------------------------------*/
@@ -54,8 +60,10 @@ nav {
 }
 
 .logo {
-    width: 210px;
+    width: 150px;
 }
+
+
 
 /* home ---------------------------------*/
 
@@ -92,4 +100,8 @@ nav {
 /* book ---------------------------------*/
 .card-body {
     font-family: 'Shippori Mincho', serif;
+}
+
+.edit-menus {
+    margin: 0.5% 2% 0 2%;
 }
