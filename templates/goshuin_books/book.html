@@ -1,32 +1,42 @@
 {% extends 'base.html' %}
 
 {% block content %}
-{% if messages %}
-{% for message in messages %}
-    {{ message.message }}
-{% endfor %}
-{% endif %}
-<h1>
-    {{ book_name }}
-    <a href="{% url 'goshuin_books:add_goshuin' book_id=book_id %}" class="top-menu"><button type="button" class="btn btn-primary rounded-circle p-0" style="width:2rem;height:2rem;">＋</button></a>
-    <a href="{% url 'goshuin_books:update_book' pk=book_id %}" class="top-menu"><button type="button" class="btn btn-outline-primary">編集</button></a>
-    <a href="{% url 'goshuin_books:delete_book' pk=book_id %}" class="top-menu"><button type="button" class="btn btn-outline-primary">削除</button></a>
-</h1>
-<div class="container">
-    <div class="row g-3">
-        {% for object in object_list %}
-        <div class="col-6 col-md-4">
-            <div class="card">
-                <div class="card-body">
-                    <img src="{{ object.picture.url }}" class="card-img-top" style="object-fit: cover; height: 250px">
-                    <p>{{ object.name }}</p>
-                    <p>{{ object.date }}</p>
-                    <p>memo:{{ object.memo }}</p>
-                    <p><a href="{% url 'goshuin_books:update_goshuin' pk=object.id %}">編集</a>  <a href="{% url 'goshuin_books:delete_goshuin' pk=object.id %}">削除</a></p>
+<div class="book-content wrapper">
+    <div class="message">
+        {% if messages %}
+        {% for message in messages %}
+            {{ message.message }}
+        {% endfor %}
+        {% endif %}
+    </div>
+    <div class="content-top">
+        <h1 class="page-title">
+            {{ book_name }}
+        </h1>
+        <div class="edit-menus">
+                <a href="{% url 'goshuin_books:add_goshuin' book_id=book_id %}" class="edit-menu"><button type="button" class="btn btn-outline-primary">＋追加</button></a>
+                <a href="{% url 'goshuin_books:update_book' pk=book_id %}" class="edit-menu"><button type="button" class="btn btn-outline-primary">編集</button></a>
+                <a href="{% url 'goshuin_books:delete_book' pk=book_id %}" class="edit-menu"><button type="button" class="btn btn-outline-primary">削除</button></a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row g-3">
+            {% for object in object_list %}
+            <div class="col-6 col-md-4">
+                <div class="card">
+                    <img src="{{ object.picture.url }}" class="card-img-top" style="object-fit: cover; height: 250px" alt="ご朱印画像">
+                    <div class="card-body">
+                        <p class="text-end">{{ object.date|date:"Y/n/j" }}</p>
+                        <h5 class="card-title">{{ object.name }}</h5>
+                        {% comment %} <p class="card-text">memo:{{ object.memo }}</p> {% endcomment %}
+                        <p class="text-end"><a href="{% url 'goshuin_books:update_goshuin' pk=object.id %}"><button type="button" class="btn btn-outline-secondary">編集</button></a>  <a href="{% url 'goshuin_books:delete_goshuin' pk=object.id %}"><button type="button" class="btn btn-outline-secondary">削除</button></a></p>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        {% endfor %}
     </div>
 </div>
+
 {% endblock %}

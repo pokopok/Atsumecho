@@ -21,7 +21,28 @@ img{
     padding: 0 4%;
 }
 
+/* メッセージ　*/
+.message {
+    font-family: 'Shippori Mincho', serif;
+}
 
+/* 見出し */
+.page-title {
+    font-size: 2rem;
+    font-family: 'Yuji Boku', serif;
+}
+
+/* コンテンツのtop */
+.content-top {
+    display: flex;
+    justify-content: center;
+    text-transform: uppercase;
+    margin: 2%;
+}
+
+.edit-menus {
+    margin: 0.5% 2% 0 2%;
+}
 
 /* header ---------------------------------*/
 nav {
@@ -47,6 +68,13 @@ nav {
     background: rgba(253, 253, 253, 0.7);
 }
 
+.home-content h1 {
+    font-family:'Shippori Mincho', serif;
+    text-transform: uppercase;
+    font-weight: normal;
+    font-size: 4rem;
+}
+
 .home-content p {
     font-size: 1.125rem;
     margin: 10px 0 42px;
@@ -60,10 +88,8 @@ nav {
     min-height: 100vh;
 }
 
-/* 見出し */
-.page-title {
-    font-size: 4rem;
-    font-family:'Shippori Mincho', serif;
-    text-transform: uppercase;
-    font-weight: normal;
+
+/* book ---------------------------------*/
+.card-body {
+    font-family: 'Shippori Mincho', serif;
 }

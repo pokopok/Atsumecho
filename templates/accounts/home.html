@@ -13,7 +13,7 @@
   <body>
     <div class=home-bg>
       <header class="page-header wrapper">
-        <nav class="navbar navbar-expand-lg ">
+        <nav class="navbar navbar-expand-lg">
           <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'accounts:home' %}">
               <img class="logo" src="{% static 'image/logo.png' %}" alt="なんでもご朱印帳 ホーム">
@@ -35,7 +35,7 @@
 
       <div class="container">
         <div class="home-content wrapper">
-            <h1 class="page-title">集めるのって、楽しい。</h1>
+            <h1 class="home-copy">集めるのって、楽しい。</h1>
             <p>神社仏閣のご朱印を集めるみたいに、あなたの好きなものを集めてみませんか。</p>
             <a href="{% url 'goshuin_books:create_book' %}"><button type="button" class="btn btn-outline-primary">ご朱印帳を作る</button></a>
         </div>
