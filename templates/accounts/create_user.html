@@ -1,8 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
-<form method="POST">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <input type="submit" value="ユーザ登録">
-</form>
+<div class="add-goshuin wrapper">
+  <div class="content-top">
+    <h1 class="page-title">ユーザー登録</h1>
+  </div>
+  <div class="form-container">
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="form-button d-grid gap-2">
+      <button type="submit" class="submit btn btn-primary">登録</button>
+      </div>
+    </form>
+    <p class="text-end"><a href="{% url 'accounts:user_login' %}">>>ログイン</a></p>
+  </div>
+</div>
 {% endblock %}
