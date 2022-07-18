@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
-<h1>ご朱印帳編集</h1>
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="更新">
-</form>
+<div class="add-goshuin wrapper">
+  <div class="content-top">
+    <h1 class="page-title">ご朱印帳編集</h1>
+  </div>
+  <div class="form-container">
+    <form method="POST">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <div class="form-button d-grid gap-2">
+        <button type="submit" class="submit btn btn-primary">更新</button>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}
