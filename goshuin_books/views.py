@@ -25,7 +25,7 @@ class GoshuinBookCreateView(LoginRequiredMixin, CreateView):
 
     def get_form(self):
         form = super(GoshuinBookCreateView, self).get_form()
-        form.fields['name'].label = 'ご朱印帳名'
+        form.fields['name'].label = 'あつめ帳名'
         return form
 
 
