@@ -4,6 +4,7 @@ from . import views
 app_name = 'atsumecho'
 
 urlpatterns = [
+    path('home/', views.HomeView.as_view(), name='home'),
     path('create_book', views.BookCreateView.as_view(), name='create_book'),
     path('list_book', views.BookListView.as_view(), name='list_book'),
     path('book/<int:book_id>', views.RecordListView.as_view(), name='book'),

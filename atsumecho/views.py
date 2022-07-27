@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, render, redirect
+from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
@@ -9,6 +10,8 @@ import os
 from datetime import date
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+class HomeView(TemplateView):
+    template_name = 'home.html'
 
 class BookCreateView(LoginRequiredMixin, CreateView):
     model = Books
