@@ -1,50 +1,53 @@
 from django.shortcuts import get_object_or_404, render, redirect
+from django.views.generic.base import TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.urls import reverse_lazy, reverse
 from django.contrib.messages.views import SuccessMessageMixin
-from .models import GoshuinBooks, Goshuins
+from .models import Books, Records
 import os
 from datetime import date
 from django.contrib.auth.mixins import LoginRequiredMixin
 
+class HomeView(TemplateView):
+    template_name = 'home.html'
 
-class GoshuinBookCreateView(LoginRequiredMixin, CreateView):
-    model = GoshuinBooks
+class BookCreateView(LoginRequiredMixin, CreateView):
+    model = Books
     fields = ['name',]
-    template_name = os.path.join('goshuin_books', 'create_book.html')
+    template_name = os.path.join('atsumecho', 'create_book.html')
 
     def get_success_url(self):
-        form = super(GoshuinBookCreateView, self).get_form()
-        return reverse('goshuin_books:book', kwargs={'book_id': form.instance.id})
+        form = super(BookCreateView, self).get_form()
+        return reverse('atsumecho:book', kwargs={'book_id': form.instance.id})
 
     def form_valid(self, form): #フォーム送信前に実行される
         form.instance.user = self.request.user
-        return super(GoshuinBookCreateView, self).form_valid(form)
+        return super(BookCreateView, self).form_valid(form)
 
     def get_form(self):
-        form = super(GoshuinBookCreateView, self).get_form()
+        form = super(BookCreateView, self).get_form()
         form.fields['name'].label = 'あつめ帳名'
         return form
 
 
-class GoshuinBookListView(LoginRequiredMixin, ListView):
-    model = GoshuinBooks
-    template_name = os.path.join('goshuin_books', 'list_book.html')
+class BookListView(LoginRequiredMixin, ListView):
+    model = Books
+    template_name = os.path.join('atsumecho', 'list_book.html')
 
     def get_queryset(self):
-        qs = super(GoshuinBookListView, self).get_queryset()
+        qs = super(BookListView, self).get_queryset()
         qs = qs.filter(user=self.request.user)
         return qs
 
 
-class GoshuinListView(LoginRequiredMixin, ListView):
-    model = Goshuins
-    template_name = os.path.join('goshuin_books', 'book.html')
+class RecordListView(LoginRequiredMixin, ListView):
+    model = Records
+    template_name = os.path.join('atsumecho', 'book.html')
 
     def get(self, request, *args, **kwargs):
-        book_user = get_object_or_404(GoshuinBooks, id=self.kwargs['book_id']).user
+        book_user = get_object_or_404(Books, id=self.kwargs['book_id']).user
         # ログインユーザー自身が作成したあつめ帳でなければホームへ
         if not request.user == book_user:
             return redirect('accounts:home')
@@ -52,39 +55,39 @@ class GoshuinListView(LoginRequiredMixin, ListView):
 
 
     def get_queryset(self):
-        qs = super(GoshuinListView, self).get_queryset()
-        qs = qs.filter(goshuin_book=self.kwargs['book_id'])
+        qs = super(RecordListView, self).get_queryset()
+        qs = qs.filter(book=self.kwargs['book_id'])
         return qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        book = get_object_or_404(GoshuinBooks, id=self.kwargs['book_id'])
+        book = get_object_or_404(Books, id=self.kwargs['book_id'])
         context['book_name'] = book.name
         context['book_id'] = self.kwargs['book_id']
         return context
 
 
-class GoshuinAddView(LoginRequiredMixin, CreateView):
-    model = Goshuins
+class RecordAddView(LoginRequiredMixin, CreateView):
+    model = Records
     fields = ['name', 'date', 'picture', 'memo']
-    template_name = os.path.join('goshuin_books', 'add_goshuin.html')
+    template_name = os.path.join('atsumecho', 'add_record.html')
 
     def get(self, request, *args, **kwargs):
-        book_user = get_object_or_404(GoshuinBooks, id=self.kwargs['book_id']).user
+        book_user = get_object_or_404(Books, id=self.kwargs['book_id']).user
         # ログインユーザー自身が作成したあつめ帳でなければホームへ
         if not request.user == book_user:
             return redirect('accounts:home')
         return super().get(request,  *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('goshuin_books:book', kwargs={'book_id': self.object.goshuin_book.id})
+        return reverse('atsumecho:book', kwargs={'book_id': self.object.book.id})
 
     def form_valid(self, form): #フォーム送信前に実行される
-        form.instance.goshuin_book = get_object_or_404(GoshuinBooks, id=self.kwargs['book_id'])
-        return super(GoshuinAddView, self).form_valid(form)
+        form.instance.book = get_object_or_404(Books, id=self.kwargs['book_id'])
+        return super(RecordAddView, self).form_valid(form)
 
     def get_form(self):
-        form = super(GoshuinAddView, self).get_form()
+        form = super(RecordAddView, self).get_form()
         form.fields['name'].label = 'タイトル'
         form.fields['date'].label = '日付'
         form.fields['picture'].label = '写真'
@@ -92,74 +95,74 @@ class GoshuinAddView(LoginRequiredMixin, CreateView):
         return form
 
 
-class GoshuinBookDeleteView(LoginRequiredMixin, DeleteView):
-    model = GoshuinBooks
-    template_name = os.path.join('goshuin_books', 'delete_book.html')
-    success_url = reverse_lazy('goshuin_books:list_book')
+class BookDeleteView(LoginRequiredMixin, DeleteView):
+    model = Books
+    template_name = os.path.join('atsumecho', 'delete_book.html')
+    success_url = reverse_lazy('atsumecho:list_book')
 
     def get(self, request, *args, **kwargs):
-        book_user = get_object_or_404(GoshuinBooks, id=self.kwargs['pk']).user
+        book_user = get_object_or_404(Books, id=self.kwargs['pk']).user
         # ログインユーザー自身が作成したあつめ帳でなければホームへ
         if not request.user == book_user:
             return redirect('accounts:home')
         return super().get(request, *args, **kwargs)
 
 
-class GoshuinDeleteView(LoginRequiredMixin, DeleteView):
-    model = Goshuins
-    template_name = os.path.join('goshuin_books', 'delete_goshuin.html')
+class RecordDeleteView(LoginRequiredMixin, DeleteView):
+    model = Records
+    template_name = os.path.join('atsumecho', 'delete_record.html')
 
     def get(self, request, *args, **kwargs):
-        book_user = get_object_or_404(Goshuins, id=self.kwargs['pk']).goshuin_book.user
+        book_user = get_object_or_404(Records, id=self.kwargs['pk']).book.user
         # ログインユーザー自身が作成した記録でなければホームへ
         if not request.user == book_user:
             return redirect('accounts:home')
         return super().get(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse('goshuin_books:book', kwargs={'book_id': self.object.goshuin_book.id})
+        return reverse('atsumecho:book', kwargs={'book_id': self.object.book.id})
 
 
-class GoshuinBookUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = GoshuinBooks
-    template_name = os.path.join('goshuin_books', 'update_book.html')
+class BookUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Books
+    template_name = os.path.join('atsumecho', 'update_book.html')
     fields = ['name',]
     success_message = '更新しました'
 
     def get(self, request, *args, **kwargs):
-        book_user = get_object_or_404(GoshuinBooks, id=self.kwargs['pk']).user
+        book_user = get_object_or_404(Books, id=self.kwargs['pk']).user
         # ログインユーザー自身が作成したあつめ帳でなければホームへ
         if not request.user == book_user:
             return redirect('accounts:home')
         return super().get(request, *args, **kwargs)
 
     def get_form(self):
-        form = super(GoshuinBookUpdateView, self).get_form()
+        form = super(BookUpdateView, self).get_form()
         form.fields['name'].label = 'あつめ帳名'
         return form
 
     def get_success_url(self):
-        return reverse_lazy('goshuin_books:book', kwargs={'book_id': self.object.id})
+        return reverse_lazy('atsumecho:book', kwargs={'book_id': self.object.id})
 
 
-class GoshuinUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
-    model = Goshuins
-    template_name = os.path.join('goshuin_books', 'update_goshuin.html')
+class RecordUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Records
+    template_name = os.path.join('atsumecho', 'update_record.html')
     fields = ['name', 'date', 'picture', 'memo']
     success_message = '更新しました'
 
     def get(self, request, *args, **kwargs):
-        book_user = get_object_or_404(Goshuins, id=self.kwargs['pk']).goshuin_book.user
+        book_user = get_object_or_404(Records, id=self.kwargs['pk']).book.user
         # ログインユーザー自身が作成した記録でなければホームへ
         if not request.user == book_user:
             return redirect('accounts:home')
         return super().get(request, *args, **kwargs)
 
     def get_success_url(self):
-        return reverse_lazy('goshuin_books:book', kwargs={'book_id': self.object.goshuin_book.id})
+        return reverse_lazy('atsumecho:book', kwargs={'book_id': self.object.book.id})
 
     def get_form(self):
-        form = super(GoshuinUpdateView, self).get_form()
+        form = super(RecordUpdateView, self).get_form()
         form.fields['name'].label = 'タイトル'
         form.fields['date'].label = '日付'
         form.fields['picture'].label = '写真'

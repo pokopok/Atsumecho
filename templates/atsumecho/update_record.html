@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="update-goshuin wrapper">
+<div class="update-record wrapper">
   <div class="content-top">
-    <h1 class="page-title">あつめ帳編集</h1>
+    <h1 class="page-title">記録の編集</h1>
   </div>
+
   <div class="form-container">
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
       {% csrf_token %}
       {{ form.as_p }}
       <div class="form-button d-grid gap-2">
