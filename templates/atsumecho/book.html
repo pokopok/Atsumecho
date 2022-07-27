@@ -14,9 +14,9 @@
             {{ book_name }}
         </h1>
         <div class="edit-menus">
-                <a href="{% url 'goshuin_books:add_goshuin' book_id=book_id %}" class="edit-menu"><button type="button" class="btn btn-outline-primary">＋追加</button></a>
-                <a href="{% url 'goshuin_books:update_book' pk=book_id %}" class="edit-menu"><button type="button" class="btn btn-outline-primary">編集</button></a>
-                <a href="{% url 'goshuin_books:delete_book' pk=book_id %}" class="edit-menu"><button type="button" class="btn btn-outline-primary">削除</button></a>
+                <a href="{% url 'atsumecho:add_record' book_id=book_id %}" class="edit-menu"><button type="button" class="btn btn-outline-primary">＋追加</button></a>
+                <a href="{% url 'atsumecho:update_book' pk=book_id %}" class="edit-menu"><button type="button" class="btn btn-outline-primary">編集</button></a>
+                <a href="{% url 'atsumecho:delete_book' pk=book_id %}" class="edit-menu"><button type="button" class="btn btn-outline-primary">削除</button></a>
         </div>
     </div>
 
@@ -30,7 +30,7 @@
                         <p class="text-end">{{ object.date|date:"Y/n/j" }}</p>
                         <h5 class="card-title">{{ object.name }}</h5>
                         {% comment %} <p class="card-text">memo:{{ object.memo }}</p> {% endcomment %}
-                        <p class="text-end"><a href="{% url 'goshuin_books:update_goshuin' pk=object.id %}"><button type="button" class="btn btn-outline-secondary">編集</button></a>  <a href="{% url 'goshuin_books:delete_goshuin' pk=object.id %}"><button type="button" class="btn btn-outline-secondary">削除</button></a></p>
+                        <p class="text-end"><a href="{% url 'atsumecho:update_record' pk=object.id %}"><button type="button" class="btn btn-outline-secondary">編集</button></a>  <a href="{% url 'atsumecho:delete_record' pk=object.id %}"><button type="button" class="btn btn-outline-secondary">削除</button></a></p>
                     </div>
                 </div>
             </div>

@@ -22,7 +22,7 @@
             </a>
             {% if user.is_authenticated %}
               <div class="navbar-nav">            
-                <a class="nav-link" href="{% url 'goshuin_books:list_book' %}">あつめ帳一覧</a>
+                <a class="nav-link" href="{% url 'atsumecho:list_book' %}">あつめ帳一覧</a>
                 <a class="nav-link" href="{% url 'accounts:user_logout' %}">ログアウト</a>
               </div>
             {% else %}
