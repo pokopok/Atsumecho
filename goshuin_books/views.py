@@ -25,7 +25,7 @@ class GoshuinBookCreateView(LoginRequiredMixin, CreateView):
 
     def get_form(self):
         form = super(GoshuinBookCreateView, self).get_form()
-        form.fields['name'].label = 'ご朱印帳名'
+        form.fields['name'].label = 'あつめ帳名'
         return form
 
 
@@ -45,7 +45,7 @@ class GoshuinListView(LoginRequiredMixin, ListView):
 
     def get(self, request, *args, **kwargs):
         book_user = get_object_or_404(GoshuinBooks, id=self.kwargs['book_id']).user
-        # ログインユーザー自身が作成したご朱印帳でなければホームへ
+        # ログインユーザー自身が作成したあつめ帳でなければホームへ
         if not request.user == book_user:
             return redirect('accounts:home')
         return super().get(request,  *args, **kwargs)
@@ -71,7 +71,7 @@ class GoshuinAddView(LoginRequiredMixin, CreateView):
 
     def get(self, request, *args, **kwargs):
         book_user = get_object_or_404(GoshuinBooks, id=self.kwargs['book_id']).user
-        # ログインユーザー自身が作成したご朱印帳でなければホームへ
+        # ログインユーザー自身が作成したあつめ帳でなければホームへ
         if not request.user == book_user:
             return redirect('accounts:home')
         return super().get(request,  *args, **kwargs)
@@ -85,7 +85,7 @@ class GoshuinAddView(LoginRequiredMixin, CreateView):
 
     def get_form(self):
         form = super(GoshuinAddView, self).get_form()
-        form.fields['name'].label = 'ご朱印名'
+        form.fields['name'].label = 'タイトル'
         form.fields['date'].label = '日付'
         form.fields['picture'].label = '写真'
         form.fields['date'].initial = date.today()
@@ -99,7 +99,7 @@ class GoshuinBookDeleteView(LoginRequiredMixin, DeleteView):
 
     def get(self, request, *args, **kwargs):
         book_user = get_object_or_404(GoshuinBooks, id=self.kwargs['pk']).user
-        # ログインユーザー自身が作成したご朱印帳でなければホームへ
+        # ログインユーザー自身が作成したあつめ帳でなければホームへ
         if not request.user == book_user:
             return redirect('accounts:home')
         return super().get(request, *args, **kwargs)
@@ -111,7 +111,7 @@ class GoshuinDeleteView(LoginRequiredMixin, DeleteView):
 
     def get(self, request, *args, **kwargs):
         book_user = get_object_or_404(Goshuins, id=self.kwargs['pk']).goshuin_book.user
-        # ログインユーザー自身が作成したご朱印でなければホームへ
+        # ログインユーザー自身が作成した記録でなければホームへ
         if not request.user == book_user:
             return redirect('accounts:home')
         return super().get(request, *args, **kwargs)
@@ -128,14 +128,14 @@ class GoshuinBookUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView)
 
     def get(self, request, *args, **kwargs):
         book_user = get_object_or_404(GoshuinBooks, id=self.kwargs['pk']).user
-        # ログインユーザー自身が作成したご朱印帳でなければホームへ
+        # ログインユーザー自身が作成したあつめ帳でなければホームへ
         if not request.user == book_user:
             return redirect('accounts:home')
         return super().get(request, *args, **kwargs)
 
     def get_form(self):
         form = super(GoshuinBookUpdateView, self).get_form()
-        form.fields['name'].label = 'ご朱印帳名'
+        form.fields['name'].label = 'あつめ帳名'
         return form
 
     def get_success_url(self):
@@ -150,7 +150,7 @@ class GoshuinUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get(self, request, *args, **kwargs):
         book_user = get_object_or_404(Goshuins, id=self.kwargs['pk']).goshuin_book.user
-        # ログインユーザー自身が作成したご朱印でなければホームへ
+        # ログインユーザー自身が作成した記録でなければホームへ
         if not request.user == book_user:
             return redirect('accounts:home')
         return super().get(request, *args, **kwargs)
@@ -160,7 +160,7 @@ class GoshuinUpdateView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 
     def get_form(self):
         form = super(GoshuinUpdateView, self).get_form()
-        form.fields['name'].label = 'ご朱印名'
+        form.fields['name'].label = 'タイトル'
         form.fields['date'].label = '日付'
         form.fields['picture'].label = '写真'
         return form

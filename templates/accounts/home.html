@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho&display=swap" rel="stylesheet">
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    <title>なんでもご朱印帳</title>
+    <title>なんでもあつめ帳</title>
   </head>
 
   <body>
@@ -16,11 +16,11 @@
         <nav class="navbar navbar-expand-lg">
           <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'accounts:home' %}">
-              <img class="logo" src="{% static 'image/logo_original.png' %}" alt="なんでもご朱印帳 ホーム">
+              <img class="logo" src="{% static 'image/logo_original.png' %}" alt="なんでもあつめ帳 ホーム">
             </a>
             {% if user.is_authenticated %}
               <div class="navbar-nav">            
-                <a class="nav-link" href="{% url 'goshuin_books:list_book' %}">ご朱印帳一覧</a>
+                <a class="nav-link" href="{% url 'goshuin_books:list_book' %}">あつめ帳一覧</a>
                 <a class="nav-link" href="{% url 'accounts:user_logout' %}">ログアウト</a>
               </div>
             {% else %}
@@ -37,7 +37,7 @@
         <div class="home-content wrapper">
             <h1 class="home-copy">集めるのって、楽しい。</h1>
             <p>神社仏閣のご朱印を集めるみたいに、あなたの好きなものを集めてみませんか。</p>
-            <a href="{% url 'goshuin_books:create_book' %}"><button type="button" class="btn btn-primary">ご朱印帳を作る</button></a>
+            <a href="{% url 'goshuin_books:create_book' %}"><button type="button" class="btn btn-primary">あつめ帳を作る</button></a>
         </div>
       </div>
 
